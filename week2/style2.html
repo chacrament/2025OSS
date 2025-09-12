@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment#1 22200100 김성찬</title>
+</head>
+
+<style>
+    body {
+        font-family: Arial;
+        background-color: #d14836;
+        line-height: 20px;
+    }
+
+    .div_top {
+        color: white;
+        padding: 15px;
+        font-size: 30px;
+    }
+
+    .container {
+        margin: 0 auto;
+    }
+
+    .div_middle, .div_middle.under {
+        width: 100%;
+        margin: 0;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    .div_middle {
+        background-color: white;
+        color: black;
+        padding: 15px;
+        float:left;
+    }
+
+    .div_middle.under {
+        background-color: #F6DAD7;
+        color: #d14836;
+    }
+
+    .div_bottom {
+        color: white;
+        text-align: center;
+        font-size: x-small;
+        margin: 10px;
+        float:inline-end;
+    }
+
+    .button {
+        background-color: #d14836;
+        padding: 3px 30px;
+        margin: 10px;
+        border-radius: 20px;
+        text-align: center;
+        border: 2px solid transparent;
+        color: white;
+    }
+
+    .button a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .button:hover {
+        color: #d14836;
+        background-color: white;
+        border: 2px solid #d14836;
+    }
+
+    .button.active {
+        background-color: white;
+        color: #d14836;
+        font-weight: bolder;
+        border: 2px solid #d14836;
+    }
+</style>
+
+<body>
+    <!-- 맨 위 -->
+    <div class="div_top">
+        <h1>Welcome to 김성찬's Homepage 22200100</h1>
+        <h3>Use the menu to select different Stylesheets</h3>
+    </div>
+    
+    <!-- 가운데 -->
+    <div class="container">
+        <!-- 흰색 부분 -->
+        <div class="div_middle">
+            <div style="float:right;">
+                <div class="button">
+                    <a href="">Stylesheet 1</a>
+                </div>
+                <div class="button active">
+                    <a href="">Stylesheet 2</a>
+                </div>
+                <div class="button">
+                    <a href="">Stylesheet 3</a>
+                </div>
+                <div class="button">
+                    <a href="">Stylesheet 4</a>
+                </div>
+                <div class="button">
+                    <a href="">No Stylesheet</a>
+                </div>
+            </div>
+
+            <h3 style="color:#d14836; font-size: xx-large;">Same Page Different Stylesheets</h3>
+            <div>This is a demonstration of how different stylesheets can change the layout of your HTML page. You can change the layout of this page by selecting different stylesheets in the menu, or by selecting one of the following links:</div>
+            <a href="" style="color:#d14836;">Stylesheet1</a>,
+            <a href="" style="color:#d14836;">Stylesheet2</a>,
+            <a href="" style="color:#d14836;">Stylesheet3</a>,
+            <a href="" style="color:#d14836;">Stylesheet4</a>.
+            <h3 style="color:#d14836; font-size: x-large;">No Styles</h3>
+            <div>This page uses DIV elements to group different sections of the HTML page. Click here to see how the page looks like with no stylesheet:</div>
+            <a href="" style="color:#d14836;">No Stylesheet</a>.
+        </div>
+
+        <!-- 연한 빨강 부분 -->
+        <div class="div_middle under">
+            <h3>Side-Bar</h3>
+            <div>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</div>
+        </div>
+    </div>
+    
+    <!-- 아래 -->
+    <div class="div_bottom">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</div>
+</body>
+</html>
