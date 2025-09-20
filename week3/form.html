@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment#2-1 김성찬 2200100</title>
+</head>
+<style>
+    body { padding: 20px; }
+    h1 { margin-bottom: 20px; }
+    input[type="text"] {
+        width: 250px; padding: 6px; font-size: 14px;
+    }
+    button {
+        padding: 6px 12px;
+        margin-left: 6px;
+        font-size: 14px;
+        font-weight: bold;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    #addBtn { background: blue; color: white; }
+    #delBtn { background: green; color: white; }
+    ul { margin-top: 20px; }
+</style>
+<body>
+    <h1>Dynamic Web page</h1>
+
+    <input type="text" id="itemInput" placeholder="예: apple, banana, kiwi">
+    <button id="addBtn">추가</button>
+    <button id="delBtn">삭제</button>
+
+    <ul id="itemList"></ul>
+
+    <script>
+    window.onload = function() {
+        const input = document.getElementById("itemInput");
+        const addBtn = document.getElementById("addBtn");
+        const delBtn = document.getElementById("delBtn");
+        const list = document.getElementById("itemList");
+
+        addBtn.onclick = function() {
+            const text = input.value.trim();
+            if (text === "") {
+                alert("추가할 항목을 입력하세요.");
+                return;
+            }
+
+            const items = text.split(",");
+            for (let i = 0; i < items.length; i++) {
+                const li = document.createElement("li");
+                li.textContent = items[i].trim();
+                if (li.textContent !== "") {
+                    list.appendChild(li);
+                }
+            }
+
+            input.value = "";
+        };
+
+        delBtn.onclick = function() {
+            list.innerHTML = "";
+        };
+    };
+    </script>
+</body>
+</html>
