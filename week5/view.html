@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment#2-2 22200100 김성찬 - view</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="my.css">
+</head>
+<body>
+    <div class="container py-4">
+        <h3 class="mb-4">단어 상세</h3>
+        <div class="card">
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-3">Level</dt><dd class="col-sm-9" id="level"></dd>
+                    <dt class="col-sm-3">Word</dt><dd class="col-sm-9" id="word"></dd>
+                    <dt class="col-sm-3">Meaning</dt><dd class="col-sm-9" id="meaning"></dd>
+                    <dt class="col-sm-3">Date</dt><dd class="col-sm-9" id="date"></dd>
+                </dl>
+            </div>
+        </div>
+        <div class="d-flex gap-2 mt-4">
+            <a class="btn btn-success" href="add.html">추가</a>
+            <a class="btn btn-outline-secondary" href="index.html">목록</a>
+            <a id="editBtn" class="btn btn-warning" href="#">수정</a>
+            <button class="btn btn-danger" onclick="if(confirm('게시물을 삭제할까요?')) location.href='index.html'">삭제</button>
+        </div>
+    </div>
+    <script>
+        const params = new URLSearchParams(location.search);
+        document.getElementById("word").textContent = params.get("word") || "N/A";
+        document.getElementById("meaning").textContent = params.get("meaning") || "N/A";
+        document.getElementById("level").textContent = params.get("level") || "N/A";
+        document.getElementById("date").textContent = params.get("date") || "N/A";
+
+        const editBtn = document.getElementById("editBtn");
+        editBtn.href = "edit.html?" + params.toString();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

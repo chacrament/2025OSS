@@ -1,11 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment#2-2 22200100 김성찬 - index</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="my.css">
 </head>
 <body>
-    
+    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-semibold" href="index.html">
+                <i class="bi bi-journal-bookmark me-2"></i>
+                Vocabulary
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="nav" class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">NoStyle</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Example</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-4">
+        <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+            <h3 class="m-0">Word List</h3>
+            <div class="d-flex gap-2 flex-wrap">
+                <select class="form-select w-auto" aria-label="select level">
+                    <option selected>select level</option>
+                    <option value="1">*</option>
+                    <option value="2">**</option>
+                    <option value="3">***</option>
+                </select>
+                <input type="text" class="form-control w-auto" style="min-width:160px" placeholder="word" />
+                <button class="btn btn-outline-secondary">Search</button>
+                <a class="btn btn-success" href="add.html">Add</a>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table align-middle table-hover small">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Level</th>
+                        <th>Word</th>
+                        <th>Meaning</th>
+                        <th>Date</th>
+                        <th>Menu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>10</td>
+                        <td>***</td>
+                        <td>
+                            <a href="view.html?word=superintendent&meaning=관리자, 감독관&level=***&date=2022-10-01">superintendent</a>
+                        </td>
+                        <td>관리자, 감독관</td>
+                        <td>2022-10-01</td>
+                        <td class="text-nowrap">
+                            <a class="me-2" href="edit.html?word=superintendent&meaning=관리자, 감독관&level=***&date=2022-10-01">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="#" onclick="return onDelete()">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>*</td>
+                        <td>
+                            <a href="view.html?word=persistent&meaning=끈임없는, 계속되는&level=*&date=2022-09-28">persistent</a>
+                        </td>
+                        <td>끈임없는, 계속되는</td>
+                        <td>2022-09-28</td>
+                        <td class="text-nowrap">
+                            <a class="me-2" href="edit.html?word=persistent&meaning=끈임없는, 계속되는&level=*&date=2022-09-28">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="#" onclick="return onDelete()">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>**</td>
+                        <td>
+                            <a href="view.html?word=maintenance&meaning=유지보수&level=**&date=2022-09-27">maintenance</a>
+                        </td>
+                        <td>유지보수</td>
+                        <td>2022-09-27</td>
+                        <td class="text-nowrap">
+                            <a class="me-2" href="edit.html?word=maintenance&meaning=유지보수&level=**&date=2022-09-27">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="#" onclick="return onDelete()">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>*</td>
+                        <td>
+                            <a href="view.html?word=collect&meaning=모으다, 수집하다&level=*&date=2022-09-27">collect</a>
+                        </td>
+                        <td>모으다, 수집하다</td>
+                        <td>2022-09-27</td>
+                        <td class="text-nowrap">
+                            <a class="me-2" href="edit.html?word=collect&meaning=모으다, 수집하다&level=*&date=2022-09-27">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="#" onclick="return onDelete()">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>**</td>
+                        <td>
+                            <a href="view.html?word=mend&meaning=수리하다, 고치다&level=**&date=2022-09-27">mend</a>
+                        </td>
+                        <td>수리하다, 고치다</td>
+                        <td>2022-09-27</td>
+                        <td class="text-nowrap">
+                            <a class="me-2" href="edit.html?word=mend&meaning=수리하다, 고치다&level=**&date=2022-09-27">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="#" onclick="return onDelete()">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>**</td>
+                        <td>
+                            <a href="view.html?word=accuse&meaning=비난하다, 고소하다&level=**&date=2022-09-26">accuse</a>
+                        </td>
+                        <td>비난하다, 고소하다</td>
+                        <td>2022-09-26</td>
+                        <td class="text-nowrap">
+                            <a class="me-2" href="edit.html?word=accuse&meaning=비난하다, 고소하다&level=**&date=2022-09-26">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="#" onclick="return onDelete()">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>*</td>
+                        <td>
+                            <a href="view.html?word=electric&meaning=전기의, 전기를 생산하는&level=*&date=2022-09-25">electric</a>
+                        </td>
+                        <td>전기의, 전기를 생산하는</td>
+                        <td>2022-09-25</td>
+                        <td class="text-nowrap">
+                            <a class="me-2" href="edit.html?word=electric&meaning=전기의, 전기를 생산하는&level=*&date=2022-09-25">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="#" onclick="return onDelete()">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>***</td>
+                        <td>
+                            <a href="view.html?word=probationary&meaning=견습중의, 가채용의&level=***&date=2022-09-24">probationary</a>
+                        </td>
+                        <td>견습중의, 가채용의</td>
+                        <td>2022-09-24</td>
+                        <td class="text-nowrap">
+                            <a class="me-2" href="edit.html?word=probationary&meaning=견습중의, 가채용의&level=***&date=2022-09-24">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="#" onclick="return onDelete()">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>*</td>
+                        <td>
+                            <a href="view.html?word=indicate&meaning=나타내다, 보여주다&level=*&date=2022-09-20">indicate</a>
+                        </td>
+                        <td>나타내다, 보여주다</td>
+                        <td>2022-09-20</td>
+                        <td class="text-nowrap">
+                            <a class="me-2" href="edit.html?word=indicate&meaning=나타내다, 보여주다&level=*&date=2022-09-20">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="#" onclick="return onDelete()">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>*</td>
+                        <td>
+                            <a href="view.html?word=legitimate&meaning=합법적인, 적법한&level=*&date=2022-09-18">legitimate</a>
+                        </td>
+                        <td>합법적인, 적법한</td>
+                        <td>2022-09-18</td>
+                        <td class="text-nowrap">
+                            <a class="me-2" href="edit.html?word=legitimate&meaning=합법적인, 적법한&level=*&date=2022-09-18">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="#" onclick="return onDelete()">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <nav aria-label="pagination" class="d-flex justify-content-center">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#">«</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">»</a>
+                </li>
+            </ul>
+        </nav>
+    </main>
+
+    <script>
+        function onDelete(){
+            return confirm('게시물을 삭제할까요?');
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
