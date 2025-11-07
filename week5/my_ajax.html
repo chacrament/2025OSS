@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>my_ajax.html - Courses CRUD</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 900px; margin: 30px auto; }
+    h1 { margin-bottom: 8px; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    tr:nth-child(even){ background: #fafafa; }
+    form { display: grid; grid-template-columns: repeat(5, 1fr) auto; gap: 8px; margin: 12px 0; }
+    input, select, button { padding: 8px; }
+    .muted { color: #666; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <h1>JS AJAX + REST API (json-server) CRUD</h1>
+  <p class="muted">API: <code>http://localhost:3000/courses</code></p>
+
+  <h2>새 과목 추가 / 수정</h2>
+  <form id="courseForm">
+    <input type="hidden" id="id" />
+    <input id="code" placeholder="code (예: CSEE101)" required />
+    <input id="title" placeholder="title (예: Intro to C++)" required />
+    <input id="instructor" placeholder="instructor (예: Kim)" required />
+    <input id="credits" type="number" min="1" max="5" placeholder="credits" required />
+    <select id="level" required>
+      <option value="">level</option>
+      <option>Beginner</option>
+      <option>Intermediate</option>
+      <option>Advanced</option>
+    </select>
+    <button type="submit">저장</button>
+    <button type="button" id="resetBtn">폼 초기화</button>
+  </form>
+
+  <h2>과목 목록</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th><th>Code</th><th>Title</th><th>Instructor</th><th>Credits</th><th>Level</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <script>
+    const API_BASE = 'http://localhost:3000/courses';
+    const tbody = document.getElementById('tbody');
+    const form  = document.getElementById('courseForm');
+    const resetBtn = document.getElementById('resetBtn');
+    const $ = (id) => document.getElementById(id);
+
+    const isNumericId = (v) => /^\d+$/.test(String(v));
+
+    // 목록
+    async function list() {
+      const res = await fetch(API_BASE);
+      const data = await res.json();
+
+      // 숫자 ID만 보여주고 ID 오름차순 정렬
+      const rows = data
+        .filter(r => isNumericId(r.id))
+        .sort((a,b) => Number(a.id) - Number(b.id));
+
+      tbody.innerHTML = rows.map(row => `
+        <tr>
+          <td>${row.id}</td>
+          <td>${row.code}</td>
+          <td>${row.title}</td>
+          <td>${row.instructor}</td>
+          <td>${row.credits}</td>
+          <td>${row.level}</td>
+          <td>
+            <button onclick='edit(${Number(row.id)})'>수정</button>
+            <button onclick='removeItem(${Number(row.id)})'>삭제</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // 단건 조회 → 폼 채우기
+    async function edit(id) {
+      const res = await fetch(`${API_BASE}/${id}`);
+      const row = await res.json();
+      $('id').value = Number(row.id); // 항상 숫자 보관
+      $('code').value = row.code;
+      $('title').value = row.title;
+      $('instructor').value = row.instructor;
+      $('credits').value = row.credits;
+      $('level').value = row.level;
+      $('code').focus();
+    }
+
+    // 삭제
+    async function removeItem(id) {
+      if (!confirm('정말 삭제할까요?')) return;
+      await fetch(`${API_BASE}/${Number(id)}`, { method: 'DELETE' });
+      await list();
+    }
+
+    function clearForm() {
+      form.reset();
+      $('id').value = '';
+    }
+
+    // 저장(추가/수정)
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        code: $('code').value.trim(),
+        title: $('title').value.trim(),
+        instructor: $('instructor').value.trim(),
+        credits: Number($('credits').value),
+        level: $('level').value
+      };
+      const id = $('id').value;
+
+      if (id) {
+        // UPDATE (id는 항상 숫자)
+        const numId = Number(id);
+        await fetch(`${API_BASE}/${numId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: numId, ...payload })
+        });
+      } else {
+        // CREATE: 숫자 ID 자동 증가 (기존 숫자 ID의 최댓값 + 1)
+        const res = await fetch(API_BASE);
+        const data = await res.json();
+        const maxId = Math.max(0, ...data.filter(d => isNumericId(d.id)).map(d => Number(d.id)));
+        const nextId = maxId + 1;
+
+        await fetch(API_BASE, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: nextId, ...payload })
+        });
+      }
+
+      clearForm();
+      await list();
+    });
+
+    resetBtn.addEventListener('click', clearForm);
+
+    // 최초 로딩
+    list();
+
+    // (선택) 기존에 문자열 ID가 있다면 한 번에 숫자로 이관하는 유틸
+    // 개발자도구 콘솔에서 아래 함수를 호출: migrateStringIds();
+    async function migrateStringIds() {
+      const res = await fetch(API_BASE);
+      const data = await res.json();
+      let maxId = Math.max(0, ...data.filter(d => isNumericId(d.id)).map(d => Number(d.id)));
+
+      for (const d of data) {
+        if (!isNumericId(d.id)) {
+          maxId += 1;
+          const newObj = { ...d, id: maxId };
+          await fetch(API_BASE, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newObj)
+          });
+          await fetch(`${API_BASE}/${d.id}`, { method: 'DELETE' });
+        }
+      }
+      await list();
+    }
+  </script>
+</body>
+</html>
